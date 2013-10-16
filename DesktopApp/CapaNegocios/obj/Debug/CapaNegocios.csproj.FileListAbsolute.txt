@@ -1,0 +1,8 @@
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\bin\Debug\CapaNegocios.dll.config
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\bin\Debug\CapaNegocios.dll
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\bin\Debug\CapaNegocios.pdb
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\bin\Debug\CapaDatos.dll
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\bin\Debug\CapaDatos.pdb
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\obj\Debug\CapaNegocios.csprojResolveAssemblyReference.cache
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\obj\Debug\CapaNegocios.dll
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaNegocios\obj\Debug\CapaNegocios.pdb

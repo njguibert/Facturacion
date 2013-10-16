@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModeloDominio.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ModeloDominioStoreContainer">
+    <EntitySet Name="Empresas" EntityType="ModeloDominio.Store.Empresas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personas" EntityType="ModeloDominio.Store.Personas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personas_Cliente" EntityType="ModeloDominio.Store.Personas_Cliente" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Empresas_Sucursal" EntityType="ModeloDominio.Store.Empresas_Sucursal" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Empresas_Proveedor" EntityType="ModeloDominio.Store.Empresas_Proveedor" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EmpresaCliente" Association="ModeloDominio.Store.EmpresaCliente">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Cliente" EntitySet="Personas_Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_inherits_Persona" Association="ModeloDominio.Store.FK_Cliente_inherits_Persona">
+      <End Role="Persona" EntitySet="Personas" />
+      <End Role="Cliente" EntitySet="Personas_Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sucursal_inherits_Empresa" Association="ModeloDominio.Store.FK_Sucursal_inherits_Empresa">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Sucursal" EntitySet="Empresas_Sucursal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedor_inherits_Empresa" Association="ModeloDominio.Store.FK_Proveedor_inherits_Empresa">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Proveedor" EntitySet="Empresas_Proveedor" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Empresas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="celular" Type="int" Nullable="true" />
+    <Property Name="ciudad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="direccion" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="telefono" Type="int" Nullable="true" />
+    <Property Name="rut" Type="bigint" Nullable="true" />
+    <Property Name="razonsocial" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="observacion" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="fechanacimiento" Type="datetime" Nullable="false" />
+    <Property Name="sexo" Type="bit" Nullable="false" />
+    <Property Name="ciudad" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas_Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Empresa_id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Empresas_Sucursal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="paginaweb" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="logo" Type="tinyint" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empresas_Proveedor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="EmpresaCliente">
+    <End Role="Empresa" Type="ModeloDominio.Store.Empresas" Multiplicity="0..1" />
+    <End Role="Cliente" Type="ModeloDominio.Store.Personas_Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="Empresa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_inherits_Persona">
+    <End Role="Persona" Type="ModeloDominio.Store.Personas" Multiplicity="1" />
+    <End Role="Cliente" Type="ModeloDominio.Store.Personas_Cliente" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sucursal_inherits_Empresa">
+    <End Role="Empresa" Type="ModeloDominio.Store.Empresas" Multiplicity="1" />
+    <End Role="Sucursal" Type="ModeloDominio.Store.Empresas_Sucursal" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Sucursal">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedor_inherits_Empresa">
+    <End Role="Empresa" Type="ModeloDominio.Store.Empresas" Multiplicity="1" />
+    <End Role="Proveedor" Type="ModeloDominio.Store.Empresas_Proveedor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proveedor">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModeloDominio" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="ModeloDominioContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empresas" EntityType="ModeloDominio.Empresa" />
+          <EntitySet Name="Personas" EntityType="ModeloDominio.Persona" />
+          <AssociationSet Name="EmpresaCliente" Association="ModeloDominio.EmpresaCliente">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="Cliente" EntitySet="Personas" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="celular" Nullable="true" />
+          <Property Type="String" Name="ciudad" Nullable="false" />
+          <Property Type="String" Name="direccion" Nullable="true" />
+          <Property Type="String" Name="email" Nullable="true" />
+          <Property Type="Int32" Name="telefono" Nullable="true" />
+          <Property Type="Int64" Name="rut" Nullable="true" />
+          <Property Type="String" Name="razonsocial" Nullable="true" />
+          <Property Type="String" Name="observacion" Nullable="true" />
+          <Property Type="String" Name="nombre" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="ModeloDominio.EmpresaCliente" FromRole="Empresa" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Sucursal" BaseType="ModeloDominio.Empresa">
+          <Property Type="String" Name="paginaweb" Nullable="false" />
+          <Property Type="Byte" Name="logo" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nombre" Nullable="false" />
+          <Property Type="String" Name="apellido" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="false" />
+          <Property Type="DateTime" Name="fechanacimiento" Nullable="false" />
+          <Property Type="Boolean" Name="sexo" Nullable="false" />
+          <Property Type="String" Name="ciudad" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proveedor" BaseType="ModeloDominio.Empresa">
+        </EntityType>
+        <EntityType Name="Cliente" BaseType="ModeloDominio.Persona">
+          <NavigationProperty Name="Empresa" Relationship="ModeloDominio.EmpresaCliente" FromRole="Cliente" ToRole="Empresa" />
+        </EntityType>
+        <Association Name="EmpresaCliente">
+          <End Type="ModeloDominio.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="ModeloDominio.Cliente" Role="Cliente" Multiplicity="0..1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModeloDominioStoreContainer" CdmEntityContainer="ModeloDominioContainer">
+    <EntitySetMapping Name="Empresas">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Empresa)">
+        <MappingFragment StoreEntitySet="Empresas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="celular" ColumnName="celular" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="rut" ColumnName="rut" />
+          <ScalarProperty Name="razonsocial" ColumnName="razonsocial" />
+          <ScalarProperty Name="observacion" ColumnName="observacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Sucursal)">
+        <MappingFragment StoreEntitySet="Empresas_Sucursal">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="paginaweb" ColumnName="paginaweb" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Proveedor)">
+        <MappingFragment StoreEntitySet="Empresas_Proveedor">
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Persona)">
+        <MappingFragment StoreEntitySet="Personas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="fechanacimiento" ColumnName="fechanacimiento" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Cliente)">
+        <MappingFragment StoreEntitySet="Personas_Cliente">
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EmpresaCliente" TypeName="ModeloDominio.EmpresaCliente" StoreEntitySet="Personas_Cliente">
+      <EndProperty Name="Empresa">
+        <ScalarProperty Name="id" ColumnName="Empresa_id" />
+      </EndProperty>
+      <EndProperty Name="Cliente">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+      <Condition ColumnName="Empresa_id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="ModeloDominio" ZoomLevel="74" >
+        <EntityTypeShape EntityType="ModeloDominio.Empresa" Width="1.5" PointX="3.375" PointY="0.5" Height="3.1340950520833331" />
+        <EntityTypeShape EntityType="ModeloDominio.Sucursal" Width="1.5" PointX="5.75" PointY="1.75" Height="1.4033821614583331" IsExpanded="true" />
+        <InheritanceConnector EntityType="ModeloDominio.Sucursal" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.875" PointY="2.4516910807291667" />
+          <ConnectorPoint PointX="5.75" PointY="2.4516910807291667" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="ModeloDominio.Persona" Width="1.5" PointX="0.875" PointY="0.5" Height="2.3648893229166665" />
+        <EntityTypeShape EntityType="ModeloDominio.Proveedor" Width="1.5" PointX="3.375" PointY="4.875" Height="1.0187792968749996" />
+        <InheritanceConnector EntityType="ModeloDominio.Proveedor" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="3.6340950520833331" />
+          <ConnectorPoint PointX="4.125" PointY="4.875" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="ModeloDominio.Cliente" Width="1.5" PointX="0.75" PointY="4" Height="1.2110807291666665" />
+        <InheritanceConnector EntityType="ModeloDominio.Cliente">
+          <ConnectorPoint PointX="1.625" PointY="2.8648893229166665" />
+          <ConnectorPoint PointX="1.625" PointY="3.625" />
+          <ConnectorPoint PointX="1.5" PointY="3.625" />
+          <ConnectorPoint PointX="1.5" PointY="4" />
+        </InheritanceConnector>
+        <AssociationConnector Association="ModeloDominio.EmpresaCliente">
+          <ConnectorPoint PointX="3.375" PointY="3.2761946614583333" />
+          <ConnectorPoint PointX="1.7083333333333333" PointY="3.2761946614583328" />
+          <ConnectorPoint PointX="1.5416666666666667" PointY="3.2761946614583333" />
+          <ConnectorPoint PointX="0.78125" PointY="3.2761946614583333" />
+          <ConnectorPoint PointX="0.78125" PointY="4" />
+        </AssociationConnector>
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

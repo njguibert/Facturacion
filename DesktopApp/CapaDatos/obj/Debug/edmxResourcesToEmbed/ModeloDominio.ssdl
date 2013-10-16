@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModeloDominio.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ModeloDominioStoreContainer">
+    <EntitySet Name="Empresas" EntityType="ModeloDominio.Store.Empresas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personas" EntityType="ModeloDominio.Store.Personas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personas_Cliente" EntityType="ModeloDominio.Store.Personas_Cliente" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Empresas_Sucursal" EntityType="ModeloDominio.Store.Empresas_Sucursal" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Empresas_Proveedor" EntityType="ModeloDominio.Store.Empresas_Proveedor" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EmpresaCliente" Association="ModeloDominio.Store.EmpresaCliente">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Cliente" EntitySet="Personas_Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_inherits_Persona" Association="ModeloDominio.Store.FK_Cliente_inherits_Persona">
+      <End Role="Persona" EntitySet="Personas" />
+      <End Role="Cliente" EntitySet="Personas_Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sucursal_inherits_Empresa" Association="ModeloDominio.Store.FK_Sucursal_inherits_Empresa">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Sucursal" EntitySet="Empresas_Sucursal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedor_inherits_Empresa" Association="ModeloDominio.Store.FK_Proveedor_inherits_Empresa">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Proveedor" EntitySet="Empresas_Proveedor" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Empresas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="celular" Type="int" Nullable="true" />
+    <Property Name="ciudad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="direccion" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="telefono" Type="int" Nullable="true" />
+    <Property Name="rut" Type="bigint" Nullable="true" />
+    <Property Name="razonsocial" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="observacion" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="apellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="fechanacimiento" Type="datetime" Nullable="false" />
+    <Property Name="sexo" Type="bit" Nullable="false" />
+    <Property Name="ciudad" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas_Cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Empresa_id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Empresas_Sucursal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="paginaweb" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="logo" Type="tinyint" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empresas_Proveedor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="EmpresaCliente">
+    <End Role="Empresa" Type="ModeloDominio.Store.Empresas" Multiplicity="0..1" />
+    <End Role="Cliente" Type="ModeloDominio.Store.Personas_Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="Empresa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_inherits_Persona">
+    <End Role="Persona" Type="ModeloDominio.Store.Personas" Multiplicity="1" />
+    <End Role="Cliente" Type="ModeloDominio.Store.Personas_Cliente" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Persona">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sucursal_inherits_Empresa">
+    <End Role="Empresa" Type="ModeloDominio.Store.Empresas" Multiplicity="1" />
+    <End Role="Sucursal" Type="ModeloDominio.Store.Empresas_Sucursal" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Sucursal">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedor_inherits_Empresa">
+    <End Role="Empresa" Type="ModeloDominio.Store.Empresas" Multiplicity="1" />
+    <End Role="Proveedor" Type="ModeloDominio.Store.Empresas_Proveedor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Proveedor">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

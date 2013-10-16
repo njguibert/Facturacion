@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModeloDominio" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="ModeloDominioContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Empresas" EntityType="ModeloDominio.Empresa" />
+    <EntitySet Name="Personas" EntityType="ModeloDominio.Persona" />
+    <AssociationSet Name="EmpresaCliente" Association="ModeloDominio.EmpresaCliente">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Cliente" EntitySet="Personas" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="celular" Nullable="true" />
+    <Property Type="String" Name="ciudad" Nullable="false" />
+    <Property Type="String" Name="direccion" Nullable="true" />
+    <Property Type="String" Name="email" Nullable="true" />
+    <Property Type="Int32" Name="telefono" Nullable="true" />
+    <Property Type="Int64" Name="rut" Nullable="true" />
+    <Property Type="String" Name="razonsocial" Nullable="true" />
+    <Property Type="String" Name="observacion" Nullable="true" />
+    <Property Type="String" Name="nombre" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="ModeloDominio.EmpresaCliente" FromRole="Empresa" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="Sucursal" BaseType="ModeloDominio.Empresa">
+    <Property Type="String" Name="paginaweb" Nullable="false" />
+    <Property Type="Byte" Name="logo" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nombre" Nullable="false" />
+    <Property Type="String" Name="apellido" Nullable="false" />
+    <Property Type="String" Name="email" Nullable="false" />
+    <Property Type="DateTime" Name="fechanacimiento" Nullable="false" />
+    <Property Type="Boolean" Name="sexo" Nullable="false" />
+    <Property Type="String" Name="ciudad" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedor" BaseType="ModeloDominio.Empresa" />
+  <EntityType Name="Cliente" BaseType="ModeloDominio.Persona">
+    <NavigationProperty Name="Empresa" Relationship="ModeloDominio.EmpresaCliente" FromRole="Cliente" ToRole="Empresa" />
+  </EntityType>
+  <Association Name="EmpresaCliente">
+    <End Type="ModeloDominio.Empresa" Role="Empresa" Multiplicity="0..1" />
+    <End Type="ModeloDominio.Cliente" Role="Cliente" Multiplicity="0..1" />
+  </Association>
+</Schema>

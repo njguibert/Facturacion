@@ -1,0 +1,5 @@
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaDatos\bin\Debug\CapaDatos.dll.config
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\JESUS\documents\visual studio 2010\Projects\Facturacion\CapaDatos\obj\Debug\CapaDatos.pdb

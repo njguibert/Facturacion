@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModeloDominioStoreContainer" CdmEntityContainer="ModeloDominioContainer">
+    <EntitySetMapping Name="Empresas">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Empresa)">
+        <MappingFragment StoreEntitySet="Empresas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="celular" ColumnName="celular" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="rut" ColumnName="rut" />
+          <ScalarProperty Name="razonsocial" ColumnName="razonsocial" />
+          <ScalarProperty Name="observacion" ColumnName="observacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Sucursal)">
+        <MappingFragment StoreEntitySet="Empresas_Sucursal">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="paginaweb" ColumnName="paginaweb" />
+          <ScalarProperty Name="logo" ColumnName="logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Proveedor)">
+        <MappingFragment StoreEntitySet="Empresas_Proveedor">
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Persona)">
+        <MappingFragment StoreEntitySet="Personas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="fechanacimiento" ColumnName="fechanacimiento" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDominio.Cliente)">
+        <MappingFragment StoreEntitySet="Personas_Cliente">
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EmpresaCliente" TypeName="ModeloDominio.EmpresaCliente" StoreEntitySet="Personas_Cliente">
+      <EndProperty Name="Empresa">
+        <ScalarProperty Name="id" ColumnName="Empresa_id" />
+      </EndProperty>
+      <EndProperty Name="Cliente">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+      <Condition ColumnName="Empresa_id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
